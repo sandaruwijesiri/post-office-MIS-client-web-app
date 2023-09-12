@@ -15,21 +15,25 @@ export default function SendFeedbackScreen(){
 
 
   return (
-    <div className="SendFeedbackScreen" style={{ padding: '70px 0' }}>
-      <div style={{ margin: 'auto' , width: '60%', border: '3px solid #33AAFF', padding: '10px'}}>
+    <div className="SendFeedbackScreen" style={{ background: 'linear-gradient(135deg, #fbfbd4, #f2c848)', height: '100vh', width: '100vw',
+    display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <div style={{ margin: 'auto' , width: '60%', border: '3px solid #945a4e', padding: '10px'}}>
         <h1>Send Feedback</h1>
-        <br></br>
-        Enter PID:
-        <br></br>
-        <br></br>
-        <TextField variant='filled' label='PID'/>
-        <br></br>
-        <br></br>
-        <br></br>
-        Enter Security Code:
-        <br></br>
-        <br></br>
-        <TextField variant='filled' label='Security Code'/>
+        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr'}}>
+          <div>
+          Enter PID:
+          <br></br>
+          <br></br>
+          <TextField variant='filled' label='PID'/>
+          </div>
+          
+          <div>
+          Enter Security Code:
+          <br></br>
+          <br></br>
+          <TextField variant='filled' label='Security Code'/>
+          </div>
+        </div>
         <br></br>
         <br></br>
         <br></br>
@@ -43,7 +47,7 @@ export default function SendFeedbackScreen(){
         <br></br>
         <br></br>
         <Box textAlign='center'>
-          <Button variant="contained" onClick={() => { navigate('/messageScreen/Success!' + ' ' + feedback); }} >Submit</Button>
+          <Button style={{background: '#952318'}} variant="contained" onClick={() => { navigate('/messageScreen/Success!' + ' ' + feedback); }} >Submit</Button>
         </Box>
       </div>
     </div>
