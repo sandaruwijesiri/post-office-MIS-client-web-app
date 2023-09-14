@@ -5,13 +5,35 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
 
+import {collection, addDoc} from 'firebase/firestore';
+import db from '../Firebase';
+
 export default function SendFeedbackScreen(){
   let navigate = useNavigate();
 
+  const [PID, setPID] = useState(1);
+  const handlePIDChange = (event) => {
+    setPID(event.target.value);
+  };
+  const [securityCode, setSecurityCode] = useState(1000);
+  const handleSecurityCodeChange = (event) => {
+    setSecurityCode(event.target.value);
+  };
   const [feedback, setFeedback] = useState('');
   const handleFeedbackChange = (event) => {
     setFeedback(event.target.value);
   };
+
+  const handleSubmitButtonClick = async (event) => {
+      // database access
+      const collectionRef = collection(db,'Feedback');
+      const docRef = await addDoc(collectionRef, {
+        PID: Number(PID),
+        SecurityCode: Number(securityCode),
+        Feedback: feedback
+      });
+      navigate('/messageScreen/Success!');
+    };
 
 
   return (
@@ -24,14 +46,18 @@ export default function SendFeedbackScreen(){
           Enter PID:
           <br></br>
           <br></br>
-          <TextField variant='filled' label='PID'/>
+          <TextField variant='filled' label='PID'
+              value={PID}
+              onChange={handlePIDChange}/>
           </div>
           
           <div>
           Enter Security Code:
           <br></br>
           <br></br>
-          <TextField variant='filled' label='Security Code'/>
+          <TextField variant='filled' label='Security Code'
+              value={securityCode}
+              onChange={handleSecurityCodeChange}/>
           </div>
         </div>
         <br></br>
@@ -47,7 +73,7 @@ export default function SendFeedbackScreen(){
         <br></br>
         <br></br>
         <Box textAlign='center'>
-          <Button style={{background: '#952318'}} variant="contained" onClick={() => { navigate('/messageScreen/Success!' + ' ' + feedback); }} >Submit</Button>
+          <Button style={{background: '#952318'}} variant="contained" onClick={handleSubmitButtonClick} >Submit</Button>
         </Box>
       </div>
     </div>
