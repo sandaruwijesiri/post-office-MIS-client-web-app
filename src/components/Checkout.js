@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react" ;
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const Checkout = () => {
-    const [show, setShow] = useState(false);
     const [success, setSuccess] = useState(false);
     const [ErrorMessage, setErrorMessage] = useState("");
     const [orderID, setOrderID] = useState(false);
@@ -47,39 +46,20 @@ const Checkout = () => {
     },[success]);
 
     return (
-        <PayPalScriptProvider options={{ "client-id": CLIENT_ID }}>
-            <div>
-                <div className="wrapper">
-                    <div className="product-img">
-                        <img
-                            src="https://cdn.pixabay.com/photo/2021/08/15/06/54/sunflower-6546993_1280.jpg"
-                            alt="SunFlower"
-                            height="320"
-                            width="300" />
-                    </div>
-                    <div className="product-info">
-                        <div className="product-text">
-                            <h1>Sunflower</h1>
-                        </div>
-                        <div className="product-price-btn">
-                            <p>$20</p>
-                            <br></br>
-                            <button className='buy-btn' type="submit" onClick={() => setShow(true)}>
-                                Buy now
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <br></br>
-                {show ? (
+
+<div style={{position: 'relative', textAlign: 'center', height: '100%', width: '100%', minHeight: '100vh', background: 'linear-gradient(135deg, #fbfbd4, #f2c848)'}}>
+<div style={{marginLeft: '25%'}}>
+<PayPalScriptProvider options={{ "client-id": CLIENT_ID }}>
+                <div>
                     <PayPalButtons
                         style={{ layout: "vertical" }}
                         createOrder={createOrder}
                         onApprove={onApprove}
                     />
-                ) : null}
-            </div>
-        </PayPalScriptProvider>
+                </div>
+            </PayPalScriptProvider>
+</div>
+</div>
     );
 }
 
