@@ -95,7 +95,7 @@ export default function CalculatePostalRatesScreen(){
       Enter Weight In Grams:
       <br></br>
       <br></br>
-      <TextField variant='filled' label='Weight In Grams' 
+      <TextField variant='filled' label='Weight In Grams' type='number'
         value={weight}
         onChange={handleWeightChange}/>
       <br></br>

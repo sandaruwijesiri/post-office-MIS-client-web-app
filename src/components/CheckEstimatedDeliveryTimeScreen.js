@@ -91,7 +91,7 @@ export default function CheckEstimatedDeliveryTimeScreen(){
         Enter PID:
         <br></br>
         <br></br>
-        <TextField variant='filled' label='PID'
+        <TextField variant='filled' label='PID' type='number'
               value={PID}
               onChange={handlePIDChange}/>
         <br></br>
