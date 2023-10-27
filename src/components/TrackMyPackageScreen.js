@@ -78,13 +78,13 @@ export default function TrackMyPackageScreen(){
         }
 
         // Do
-        if(sttus==="To be Dispatched" || sttus==="Queued" || sttus==="To be Bundled" || sttus==="Bundled" || sttus==="Dispatched"){
+        if(sttus==="To be Dispatched" || sttus==="Queued" || sttus==="To be Bundled" || sttus==="Bundled" || sttus==="Dispatched" || sttus==="Assigned"){
           const acceptedReceptionist = doc.data().accepted_receptionist;
           getReceptionistPostOffice({acceptedReceptionist});
         }else if(sttus==="To be Delivered" || sttus==="To be Assigned"){
           const receiverAddressId = doc.data().receiver_address_id;
           getAddress({receiverAddressId});
-        }else if(sttus==="Out for Delivery" || sttus==="Assigned"){
+        }else if(sttus==="Out for Delivery"){
           const assignedPostmanId = doc.data().assigned_postman;
           getPostmanRealtimeLocation({assignedPostmanId});
         }
