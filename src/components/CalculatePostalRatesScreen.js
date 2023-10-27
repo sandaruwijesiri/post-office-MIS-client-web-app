@@ -32,31 +32,38 @@ export default function CalculatePostalRatesScreen(){
     
     console.log(type + " svba");
 
-  const snapshot = await getDocs(queryRef);
-  if (snapshot.empty) {
-    console.log('No matching documents.');
-    return;
-  }  
-  
-  let cost = 0;
-  snapshot.forEach((doc) => {
-    let jsonn = null;
-    if(type=='normal'){
-      jsonn = doc.data().normal;
-    }else if(type=='registered'){
-      jsonn = doc.data().registered;
-    }else if(type=='logi'){
-      jsonn = doc.data().logi;
-    }
+    const snapshot = await getDocs(queryRef);
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+      return;
+    }  
+    
+    let cost = 0;
     let weightAboveActual = 50000;
-    for(let key in jsonn){
-      let temp = Number(key.substring(2));
-      if(temp<weightAboveActual && Number(weight)<=temp){
-        weightAboveActual = temp;
-        cost = jsonn[key];
+    snapshot.forEach((doc) => {
+      let jsonn = null;
+      if(type==='normal'){
+        jsonn = doc.data().normal;
+      }else if(type==='registered'){
+        jsonn = doc.data().registered;
+      }else if(type==='logi'){
+        jsonn = doc.data().logi;
+      }else if(type==='courier'){
+        jsonn = doc.data().courier;
       }
+      for(let key in jsonn){
+        let temp = Number(key.substring(2));
+        if(temp<weightAboveActual && Number(weight)<=temp){
+          weightAboveActual = temp;
+          cost = jsonn[key];
+        }
+      }
+    });
+
+    if(weightAboveActual===50000){
+      navigate('/messageScreen/Maximum Weight Exceeded.');
+      return;
     }
-  });
 
     // Find postal rate.
     navigate('/messageScreen/Estimated Postal Rate: ' + cost + ' LKR');
@@ -80,6 +87,7 @@ export default function CalculatePostalRatesScreen(){
         <MenuItem value={"normal"}>Normal Post</MenuItem>
         <MenuItem value={"registered"}>Registered Post</MenuItem>
         <MenuItem value={"logi"}>Logi Post</MenuItem>
+        <MenuItem value={"courier"}>Fast Track Courier</MenuItem>
       </TextField>
       <br></br>
       <br></br>

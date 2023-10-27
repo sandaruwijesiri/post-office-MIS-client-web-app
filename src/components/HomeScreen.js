@@ -218,13 +218,13 @@ export default function HomeScreen(){
     </Box>
     
     <div>
-      <img src={backgroundImagePostOffice} alt="background" style={{height: '100vh', width: '100vw', filter: `brightness(40%)`}}></img>
+      <img src={backgroundImagePostOffice} alt="background" style={{height: '100vh', width: '100%', filter: `brightness(40%)`}}></img>
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: `translate(-50%,-50%)`, zIndex: 2, textAlign: 'center'}}>
         <p style={{color: 'white', fontSize: '3em', fontWeight: 'bold'}}>
           Welcome!
         </p>
         <p style={{color: 'white', fontSize: '2em'}}>
-          Welcome to the post office client web-app. Here you can take care of most of your postal needs within minutes. Click the icon at the top left to begin!
+          Welcome to the post office client web-app. Here you can take care of most of your postal needs within minutes. Click the button at the top left to begin!
         </p>
       </div>
       <div style={{position: 'absolute', right: '16px', bottom: '8px'}}>
@@ -238,7 +238,7 @@ export default function HomeScreen(){
     </div>
     <div className="HomeScreen" style={{minHeight: '100vh'}}>
       <div id='ourServicesId' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: '-10%', paddingTop: '10%',
-       height: '100vh', width: '100vw', background: 'linear-gradient(135deg, #fbfbd4, #f2c848)'}}>
+       height: '100vh', background: 'linear-gradient(135deg, #fbfbd4, #f2c848)'}}>
         <div style={{background: '#d6c4a4', padding: '30px', margin: '10px'}}>
         <p style={{color: 'black', fontSize: '1.5em', fontWeight: 'bold', textAlign: 'center'}}>
           Track Packages
@@ -276,10 +276,13 @@ export default function HomeScreen(){
             Contact us:
           </p>
           <p style={{color: 'white', fontSize: '1em', marginTop: '-1px'}}>
-            Email: <a href = "mailto: sandarumihiran29@gmail.com" style={{color: 'white'}}>sandarumihiran29@gmail.com</a>
+            Email: <a href = "mailto: info@slpost.lk" style={{color: 'white'}}>info@slpost.lk</a>, <a href = "mailto: pmg@slpost.lk" style={{color: 'white'}}>pmg@slpost.lk</a>
             <br></br>
             <br></br>
-            Phone: <a href = "tel:+94753140906" style={{color: 'white'}}>0753140906</a>
+            Phone: <a href = "tel:+94112328301" style={{color: 'white'}}>0112328301</a>
+            <br></br>
+            <br></br>
+            Fax: <a href = "tel:+94112440555" style={{color: 'white'}}>0112440555</a>
             <br></br>
             <br></br>
             Address: Post Master General, Postal Head Quarters, D.R Wijewardena Mawatha, Colombo 10, 001000, Sri Lanka.

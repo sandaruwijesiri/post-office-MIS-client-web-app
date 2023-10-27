@@ -14,7 +14,8 @@ const firebaseConfig = {
   storageBucket: "pomis-g6.appspot.com",
   messagingSenderId: "64553418375",
   appId: "1:64553418375:web:020ebb3213899307264222",
-  measurementId: "G-TQDD31GN0F"
+  measurementId: "G-TQDD31GN0F",
+  databaseURL: "https://pomis-g6-default-rtdb.firebaseio.com",
 };
 
 // Initialize Firebase

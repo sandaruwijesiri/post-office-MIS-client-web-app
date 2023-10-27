@@ -11,21 +11,20 @@ import db from '../Firebase';
 export default function CheckEstimatedDeliveryTimeScreen(){
   let navigate = useNavigate();
   
-  const [PID, setPID] = useState(10);
+  const [PID, setPID] = useState("");
   const handlePIDChange = (event) => {
     setPID(event.target.value);
   };
-  const [securityCode, setSecurityCode] = useState(1234);
+  const [securityCode, setSecurityCode] = useState("");
   const handleSecurityCodeChange = (event) => {
     setSecurityCode(event.target.value);
   };
 
   // database access
-  const collectionRef = collection(db,'PackageLocations');
+  const collectionRef = collection(db,'MailServiceItem');
   const queryRef = query(
     collectionRef,
-    where('PID', '==', Number(PID)),
-    where('SecurityCode', '==', Number(securityCode))
+    where('security_number', '==', securityCode)
   );
   const handleSubmitButtonClick = async (event) => {
     // handle button click.
@@ -34,13 +33,53 @@ export default function CheckEstimatedDeliveryTimeScreen(){
       navigate('/messageScreen/Invalid PID or Security Code');
       return;
     }  
-    
-    let ETA = '';
+
+    let found = false;
+    let ETA = "";
+    let nowDate = new Date();
+    let finalDate = new Date();
     snapshot.forEach((doc) => {
-      ETA = doc.data().ETA;
+      if(!found && doc.id===PID){
+        const sttus = doc.data().status;
+        let timeTaken = 0;
+        if(sttus==="To be Dispatched" || sttus==="Queued" || sttus==="To be Bundled" || sttus==="Bundled" || sttus==="Dispatched"){
+          //ETA = "3 days";
+          timeTaken = 3;
+        }else if(sttus==="To be Delivered" || sttus==="Out for Delivery" || sttus==="To be Assigned" || sttus==="Assigned"){
+          //ETA = "1 day";
+          timeTaken = 1;
+        }else{
+          ETA = "Invalid Status";
+        }
+        let tempDate = new Date();
+        tempDate.setDate(nowDate.getDate()+timeTaken);
+        if(tempDate.getDay()===0){
+          tempDate.setDate(tempDate.getDate()+1);
+        }else if(tempDate.getDay()===6){
+          tempDate.setDate(tempDate.getDate()+2);
+        }
+        finalDate = tempDate;
+        found=true;
+      }
     });
+
+    if(!found){
+      navigate('/messageScreen/Invalid PID or Security Code');
+      return;
+    }
+
+    let differenceInDays = Math.round((finalDate.getTime()-nowDate.getTime())/(1000*3600*24));
+    if(ETA===""){
+      if(differenceInDays===1){
+        ETA = "1 day";
+      }else {
+        ETA = differenceInDays + " days";
+      }
+      navigate('/messageScreen/Estimated Delivery Time: ' + ETA);
+      return;
+    }
     
-    navigate('/messageScreen/Estimated Delivery Time: ' + ETA);
+    navigate('/messageScreen/ ' + ETA);
   };
 
     return (
@@ -58,7 +97,7 @@ export default function CheckEstimatedDeliveryTimeScreen(){
         <br></br>
         <br></br>
         <br></br>
-        Enter Security Code:
+        Enter Security Number:
         <br></br>
         <br></br>
         <TextField variant='filled' label='Security Code'
